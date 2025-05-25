@@ -29,7 +29,10 @@ class PlacesScreenState extends ConsumerState<PlacesScreen> {
         title: const Text("Your favorite places"),
         actions: [IconButton(onPressed: onAddPlace, icon: Icon(Icons.add))],
       ),
-      body: PlacesList(places: places),
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: PlacesList(places: places),
+      ),
     );
   }
 }
