@@ -15,6 +15,14 @@ class PlacesScreen extends ConsumerStatefulWidget {
 }
 
 class PlacesScreenState extends ConsumerState<PlacesScreen> {
+  late Future<void> _placesFuture;
+
+  @override
+  void initState() {
+    _placesFuture = ref.read(placesProvider.notifier).loadPlaces();
+    super.initState();
+  }
+
   void onAddPlace() {
     Navigator.of(
       context,
@@ -31,7 +39,14 @@ class PlacesScreenState extends ConsumerState<PlacesScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.all(8),
-        child: PlacesList(places: places),
+        child: FutureBuilder(
+          future: _placesFuture,
+          builder:
+              (context, snapshot) =>
+                  snapshot.connectionState == ConnectionState.waiting
+                      ? const Center(child: CircularProgressIndicator())
+                      : PlacesList(places: places),
+        ),
       ),
     );
   }

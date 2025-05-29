@@ -31,13 +31,7 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
     }
     ref
         .read(placesProvider.notifier)
-        .addPlace(
-          Place(
-            title: enteredTitle,
-            image: _selectedImage!,
-            location: _selectedLocation!,
-          ),
-        );
+        .addPlace(enteredTitle, _selectedImage!, _selectedLocation!);
     Navigator.of(context).pop();
   }
 
